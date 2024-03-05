@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class Home extends StatelessWidget {
@@ -15,15 +16,16 @@ class Home extends StatelessWidget {
           Image.asset('assets/images/quiz-logo.png',width: 300,
           color: Colors.white.withOpacity(0.65),),
           const SizedBox(height: 80,),
-          const Text('Learn Flutter',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-            ),),
+          Text('Learn Flutter',
+              style: GoogleFonts.poppins(
+                  color: Colors.white.withOpacity(0.65),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 50,),
           OutlinedButton.icon(
             style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white
+              foregroundColor: Colors.white.withOpacity(0.65)
             ),
               onPressed: (){
               switchScreen();
