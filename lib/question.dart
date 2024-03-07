@@ -32,7 +32,7 @@ class _QuestionState extends State<Question> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(currentQuestion.text,
-          style: GoogleFonts.poppins(color: Colors.white,
+            style: GoogleFonts.poppins(color: Colors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,),

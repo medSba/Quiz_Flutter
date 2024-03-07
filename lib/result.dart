@@ -1,28 +1,36 @@
 import 'package:app02/data/questions.dart';
+import 'package:app02/summary.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Results extends StatelessWidget {
-  const Results(this.selectedAnswer,{super.key});
+  const Results(this.selectedAnswer, {Key? key}) : super(key: key);
 
   final List<String> selectedAnswer;
 
-  List<Map<String,Object>> getSummaryData(){
-    final List<Map<String,Object>> summary = [];
+  List<Map<String, Object>> getSummaryData() {
+    List<Map<String, Object>> summary = [];
 
-    for(var i = 0;i<selectedAnswer.length ; i++){
+    for (var i = 0; i < selectedAnswer.length; i++) {
       summary.add({
-        'Question_index' : i,
-        'Question' : questions[i].text,
-        'Correct_answer' : questions[i].answers[0],
-        'User_answer' : selectedAnswer[i],
+        'question_index': i,
+        'question': questions[i].text,
+        'correct_answer': questions[i].answers[0],
+        'user_answer': selectedAnswer[i],
       });
     }
     return summary;
-}
+  }
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    var numOfCorrect = 0;
+    for (var i = 0; i < summaryData.length; i++) {
+      if(summaryData[i]['user_answer']==summaryData[i]['correct_answer']){
+        numOfCorrect+=1;
+      }
+    };
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(10),
@@ -30,22 +38,23 @@ class Results extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('You answered 3 of 6 questions Correctly',
-            style: GoogleFonts.poppins(color: Colors.blueGrey,
-                fontSize: 24,
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,),
-          const SizedBox(height: 30,),
-          ...getSummaryData().map((e) => Column(
-            children: [
-              Text(e['Question_index'].toString(),),
-              Text(e['Question'].toString(),),
-              Text(e['Correct_answer'].toString(),),
-              Text(e['User_answer'].toString(),),
-            ],
-          )),
-          const SizedBox(height: 30,),
-          TextButton(onPressed: (){}, child: const Text('Restart Quiz!'))
+          Text('You answered $numOfCorrect of ${questions.length} questions Correctly',
+            style: GoogleFonts.poppins(
+              color: Colors.blueGrey,),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          Summary(summaryData),
+          const SizedBox(height: 20),
+          TextButton.icon(
+            onPressed: () {
+            },
+            icon: const Icon(Icons.restart_alt_outlined, color: Colors.white),
+            label: const Text(
+              'Restart Quiz!',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
         ],
       ),
     );
