@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Results extends StatelessWidget {
-  const Results(this.selectedAnswer, {Key? key}) : super(key: key);
+  const Results(this.selectedAnswer, this.restartQuiz,{Key? key}) : super(key: key);
 
   final List<String> selectedAnswer;
+  final void Function() restartQuiz;
 
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < selectedAnswer.length; i++) {
@@ -24,7 +25,6 @@ class Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     var numOfCorrect = 0;
     for (var i = 0; i < summaryData.length; i++) {
       if(summaryData[i]['user_answer']==summaryData[i]['correct_answer']){
@@ -48,6 +48,7 @@ class Results extends StatelessWidget {
           const SizedBox(height: 20),
           TextButton.icon(
             onPressed: () {
+              restartQuiz();
             },
             icon: const Icon(Icons.restart_alt_outlined, color: Colors.white),
             label: const Text(

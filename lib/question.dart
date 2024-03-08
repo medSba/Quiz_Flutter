@@ -37,7 +37,7 @@ class _QuestionState extends State<Question> {
           fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,),
           const SizedBox(height: 30,),
-          ... currentQuestion.getShuffledAnswers().map((e) =>
+          ... currentQuestion.shuffledAnswers.map((e) =>
               Container(
                 margin: const EdgeInsets.all(5),
               child: AnswerButton(answerText: e, onPressed: (){
